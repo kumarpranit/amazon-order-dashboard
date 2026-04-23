@@ -1,120 +1,219 @@
-# Amazon Order & Delivery Dashboard
+<div align="center">
 
-An interactive data dashboard built with **Plotly Dash** that visualises Brazilian e-commerce order and delivery data across two views — an Executive Overview and a VP Revenue Report.
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" width="200px" alt="Amazon Logo"/>
+
+# 📦 Amazon Order & Delivery Dashboard
+
+**An interactive, real-time e-commerce analytics dashboard built with Plotly Dash**
+
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Dash](https://img.shields.io/badge/Dash-4.1.0-008DE4?style=for-the-badge&logo=plotly&logoColor=white)](https://dash.plotly.com)
+[![Plotly](https://img.shields.io/badge/Plotly-5.24.1-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2.3-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org)
+[![Render](https://img.shields.io/badge/Hosted_on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
+
+[![GitHub stars](https://img.shields.io/github/stars/kumarpranit/amazon-order-dashboard?style=social)](https://github.com/kumarpranit/amazon-order-dashboard/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kumarpranit/amazon-order-dashboard?style=social)](https://github.com/kumarpranit/amazon-order-dashboard/network)
+
+<br/>
+
+[🚀 Live Demo](#-live-demo) · [✨ Features](#-features) · [📊 Dashboard Views](#-dashboard-views) · [🛠 Tech Stack](#-tech-stack) · [⚡ Quick Start](#-quick-start) · [☁️ Deploy](#️-deployment)
+
+</div>
 
 ---
 
-## Live Demo
+## 🚀 Live Demo
 
-> Deployed on Render: *(add your URL here after deployment)*
+> 🌐 **[amazon-order-dashboard.onrender.com](https://amazon-order-dashboard.onrender.com)** *(add URL after deploy)*
+
+> ⚠️ Free tier may take ~30 seconds to wake from sleep on first visit.
 
 ---
 
-## Features
+## ✨ Features
 
-### Shared Filter Bar
-| Filter | Options |
+<table>
+<tr>
+<td width="50%">
+
+### 🎛 Interactive Filters
+- 📅 **Date Range Picker** — slice any time window
+- 🗺 **State** — multi-select Brazilian states
+- 📋 **Order Status** — delivered, cancelled, shipped & more
+- 💳 **Payment Type** — credit card, boleto, voucher, debit
+- 🏷 **Category** — filter by product category
+- 🔄 **Reset Button** — clear all filters in one click
+
+</td>
+<td width="50%">
+
+### ⚡ Cross-Filtering
+- Click a **state bar** → filters the whole dashboard to that state
+- Click a **payment pie slice** → filters by payment type
+- Click a **status bar** → filters by order status
+- Click a **category bar** → filters by product category
+- Every chart and KPI updates **instantly**
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📊 Dashboard Views
+
+### 🏢 Tab 1 — Executive Overview
+
+| KPI Card | Description |
 |---|---|
-| Date Range | Any start/end date between Sep 2016 – Sep 2018 |
-| State | Any Brazilian state (multi-select) |
-| Order Status | delivered, cancelled, shipped, etc. (multi-select) |
-| Payment Type | credit card, boleto, voucher, debit (multi-select) |
-| Category | Any product category (multi-select) |
-| Reset | Clears all filters instantly |
+| 💰 **Total Revenue** | Sum of all payment values in BRL |
+| 📦 **Total Orders** | Unique order count |
+| 🛒 **Avg Order Value** | Mean payment value per order |
+| 🚚 **On-Time Delivery** | % of delivered orders within estimated window |
 
-All KPI cards and every chart update in real time when filters change.
+> Each KPI card shows a **"% of total" badge** so you always know how much of the full dataset your filters are covering.
 
-### Tab 1 — Executive Overview
-- **KPI Cards** — Total Revenue, Total Orders, Avg Order Value, On-Time Delivery % (each shows % of total dataset currently in view)
-- **Monthly Revenue** — area chart
-- **Orders by Status** — bar chart (click a bar to filter by that status)
-- **Payment Types** — donut chart (click a slice to filter by payment type)
-- **Top 10 Categories by Revenue** — horizontal bar (click to filter by category)
-- **Orders by State** — bar chart (click to filter by state)
-- **Avg Delivery Days per Month** — line chart
+**Charts included:**
 
-### Tab 2 — VP Revenue Report
-Answers a brief from the VP of Revenue:
-- **Sales by Month** — revenue trend line with area fill
-- **Order Volume by Month** — bars + dotted trend overlay
-- **Top 10 Most Purchased Product Categories** — ranked by purchase frequency (not revenue)
-- **% of Orders from São Paulo City** — monthly line with average reference line
-
-A **Design Rationale card** at the top of this tab explains the layout decisions, metric choices, and additional visualisations worth considering.
+```
+┌─────────────────────────────┬──────────────────┐
+│  📈 Monthly Revenue (area)  │  Orders by Status │
+├──────────────┬──────────────┴──────────────────-┤
+│ 💳 Payment   │  🏷 Top 10 Categories by Revenue  │
+│    Types     │     (horizontal bar)              │
+│   (donut)    │                                   │
+├──────────────┴────────────────────┬─────────────┤
+│  🗺 Orders by State (Top 15)      │ 🚚 Avg Days │
+│                                   │   Delivery  │
+└───────────────────────────────────┴─────────────┘
+```
 
 ---
 
-## Datasets
+### 📋 Tab 2 — VP Revenue Report
 
-Five CSV files (~89k rows each) stored in `data/`:
+> *Built to answer a direct brief from the VP of Revenue.*
 
-| File | Key Columns |
+| Chart | Insight |
 |---|---|
-| `df_Customers.csv` | customer_id, customer_city, customer_state |
-| `df_OrderItems.csv` | order_id, product_id, price, shipping_charges |
-| `df_Payments.csv` | order_id, payment_type, payment_value |
-| `df_Products.csv` | product_id, product_category_name |
-| `orders_rev_df.csv` | order_id, customer_id, order_status, timestamps |
+| 📈 **Sales by Month** | Revenue trend line — spot seasonal peaks and growth trajectory |
+| 📊 **Order Volume by Month** | Bar chart + dotted trend overlay — separate volume from revenue growth |
+| 🏆 **Top 10 Most Purchased Categories** | Ranked by **frequency** (not revenue) — what customers actually buy most |
+| 🏙 **% Orders from São Paulo** | Monthly % with average reference line — São Paulo is Brazil's #1 commerce hub |
+
+**Also included on this tab:**
+
+> 💡 A **Design Rationale card** answers the 3 key questions:
+> - *What kind of dashboard did we build and why?*
+> - *How is the layout designed?*
+> - *What additional metrics should the VP consider?*
 
 ---
 
-## Running Locally
+## 🗂 Dataset Overview
+
+Five CSV files (~89,000 rows each) sourced from a Brazilian e-commerce platform:
+
+| File | Key Columns | Rows |
+|---|---|---|
+| `df_Customers.csv` | customer_id, city, state | ~89k |
+| `df_OrderItems.csv` | order_id, product_id, price, shipping | ~89k |
+| `df_Payments.csv` | order_id, payment_type, payment_value | ~89k |
+| `df_Products.csv` | product_id, product_category_name | ~89k |
+| `orders_rev_df.csv` | order_id, status, timestamps | ~89k |
+
+> 📅 **Date Range:** September 2016 — September 2018
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology | Version |
+|---|---|---|
+| 🖼 App Framework | [Plotly Dash](https://dash.plotly.com/) | 4.1.0 |
+| 🎨 UI Components | [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/) | 2.0.4 |
+| 📊 Charts | [Plotly](https://plotly.com/python/) | 5.24.1 |
+| 🔢 Data Processing | [pandas](https://pandas.pydata.org/) | 2.2.3 |
+| 🚀 Production Server | [gunicorn](https://gunicorn.org/) | 23.0.0 |
+| ☁️ Hosting | [Render](https://render.com) | — |
+
+---
+
+## ⚡ Quick Start
 
 ```bash
-# 1. Clone
+# 1. Clone the repository
 git clone https://github.com/kumarpranit/amazon-order-dashboard.git
 cd amazon-order-dashboard
 
-# 2. Install dependencies
+# 2. (Optional) Create a virtual environment
+python -m venv venv && source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run
+# 4. Run the app
 python app.py
 ```
 
-Open [http://localhost:8050](http://localhost:8050) in your browser.
+Open **[http://localhost:8050](http://localhost:8050)** in your browser. 🎉
 
 ---
 
-## Deployment (Render)
+## ☁️ Deployment
 
-The repo includes a `render.yaml` blueprint for one-click deployment.
+This repo includes a `render.yaml` blueprint for **one-click deployment** on Render.
 
-1. Go to [render.com](https://render.com) and sign in with GitHub
-2. Click **New + → Web Service → Connect a repository**
-3. Select `amazon-order-dashboard`
-4. Render auto-detects the blueprint — confirm and click **Create Web Service**
-5. Your app will be live in ~3 minutes at `https://amazon-order-dashboard.onrender.com`
+### Deploy to Render (Free)
 
-> **Note:** Free tier instances sleep after 15 min of inactivity and take ~30 sec to wake on next visit.
+```
+1. Go to render.com → sign in with GitHub
+2. New + → Web Service → Connect a repository
+3. Select  kumarpranit/amazon-order-dashboard
+4. Render auto-reads render.yaml → click Create Web Service
+5. Live in ~3 minutes 🚀
+```
 
----
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
-## Tech Stack
-
-| Layer | Library |
-|---|---|
-| App framework | [Plotly Dash](https://dash.plotly.com/) 4.1 |
-| UI components | [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/) |
-| Charts | [Plotly](https://plotly.com/python/) 5.24 |
-| Data processing | [pandas](https://pandas.pydata.org/) 2.2 |
-| Production server | [gunicorn](https://gunicorn.org/) |
+> **Free tier note:** App sleeps after 15 min of inactivity. Upgrade to Starter ($7/mo) for always-on hosting.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 amazon-order-dashboard/
-├── app.py               # Main Dash application
-├── requirements.txt     # Python dependencies
-├── Procfile             # gunicorn start command
-├── render.yaml          # Render deployment blueprint
-├── data/
-│   ├── Copy of df_Customers.csv
-│   ├── Copy of df_OrderItems.csv
-│   ├── Copy of df_Payments.csv
-│   ├── Copy of df_Products.csv
-│   └── Copy of orders_rev_df.csv
-└── README.md
+│
+├── 📄 app.py                      # Main Dash application
+├── 📄 requirements.txt            # Python dependencies
+├── 📄 Procfile                    # gunicorn start command
+├── 📄 render.yaml                 # Render deployment blueprint
+├── 📄 README.md                   # You are here
+│
+└── 📂 data/
+    ├── Copy of df_Customers.csv
+    ├── Copy of df_OrderItems.csv
+    ├── Copy of df_Payments.csv
+    ├── Copy of df_Products.csv
+    └── Copy of orders_rev_df.csv
 ```
+
+---
+
+## 👤 Author
+
+**Pranit Kumar**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/kumarpranit)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/kumarpranit)
+
+---
+
+<div align="center">
+
+**Built for the UCLA Industry Seminar — Amazon Case Study · Spring 2026**
+
+⭐ If you found this useful, give the repo a star!
+
+</div>
