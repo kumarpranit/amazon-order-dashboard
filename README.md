@@ -1,3 +1,13 @@
+---
+title: Amazon Order Dashboard
+emoji: 📦
+colorFrom: yellow
+colorTo: blue
+sdk: docker
+pinned: false
+app_port: 7860
+---
+
 <div align="center">
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" width="200px" alt="Amazon Logo"/>
@@ -25,7 +35,7 @@
 
 ## 🚀 Live Demo
 
-> 🌐 **[amazon-order-dashboard.onrender.com](https://amazon-order-dashboard.onrender.com)** *(add URL after deploy)*
+> 🌐 **[kumarpranit-amazon-dashboard.hf.space](https://kumarpranit-amazon-dashboard.hf.space)**
 
 > ⚠️ Free tier may take ~30 seconds to wake from sleep on first visit.
 
